@@ -8,5 +8,5 @@ class Pessoa:
     Estrutura inicial de uma pessoa na fila de atendimento
     '''
     ultrapassagens = int
-    senha = int
+    codigo = int
     tipo = Tipo 
