@@ -22,12 +22,8 @@ class Fila:
     2
     >>> f.mostra_fila()
     '[1, 2]'
-    >>> f.encontra_indice()
-    0
     >>> f.enfileira_prioridade()
     3
-    >>> f.encontra_indice()
-    1
     >>> f.enfileira_prioridade()
     4
     >>> f.mostra_fila()
@@ -40,6 +36,26 @@ class Fila:
     6
     >>> f.mostra_fila()
     '[3, 4, 1, 2, 6, 5]'
+    >>> f.enfileira_geral()
+    7
+    >>> f.enfileira_geral()
+    8
+    >>> f.enfileira_prioridade()
+    9
+    >>> f.mostra_fila()
+    '[3, 4, 1, 2, 6, 9, 5, 7, 8]'
+    >>> f.desenfileira()
+    3
+    >>> f.desenfileira()
+    4
+    >>> f.mostra_fila()
+    '[1, 2, 6, 9, 5, 7, 8]'
+    >>> f.enfileira_prioridade()
+    10
+    >>> f.enfileira_prioridade()
+    11
+    >>> f.mostra_fila()
+    '[1, 2, 6, 9, 5, 10, 7, 8, 11]'
     '''
     def __init__(self):
         self.elementos = [Demanda(None, None)] * 10
@@ -101,18 +117,21 @@ class Fila:
         return self.fim == 0
 
     def encontra_indice(self):
-        #print(self.elementos[self.fim-1].codigo, self.elementos[self.fim-1].ultrapassagens)
+
         for i in range(self.fim-1, 0, -1):
             demanda = self.elementos[i]
 
             if demanda.tipo == Tipo.PRIORITARIA:
                 return i + 1
-            
-            if demanda.tipo == Tipo.GERAL and demanda.ultrapassagens == 0:
+
+            elif demanda.tipo == Tipo.GERAL and demanda.ultrapassagens == 0:
                 return i + 1
-            
-            if demanda.tipo == Tipo.GERAL and demanda.ultrapassagens > 0:
+
+            elif demanda.tipo == Tipo.GERAL and demanda.ultrapassagens > 0:
                 demanda.ultrapassagens -= 1
 
-        self.elementos[0].ultrapassagens -= 1
-        return 0
+        if self.elementos[0].tipo == Tipo.PRIORITARIA:
+            return 1
+        else:
+            self.elementos[0].ultrapassagens -= 1
+            return 0
