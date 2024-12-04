@@ -72,12 +72,27 @@ class Fila:
     '[1, 2, 6, 9, 5, 10, 7, 8, 11, 12, 13, 16, 17, 14, 15, 18]'
     '''
     def __init__(self):
+        '''
+        Inicializa a fila de atendimento
+        '''
         self.elementos: list[Demanda] = [Demanda(None, None)] * 8
         self.tam: int = 8
         self.fim: int = 0
         self.contador: int = 1
 
     def enfileira_geral(self) -> int:
+        '''
+        Insere o código de atendimento de tipo GERAL na fila e retorna o código atribuído sequencialmente
+        
+        Exemplos:
+        >>> f = Fila()
+        >>> f.enfileira_geral()
+        1
+        >>> f.enfileira_geral()
+        2
+        >>> f.enfileira_geral()
+        3
+        '''
         if self.tam - self.fim < 2:
             self.elementos = self.elementos + [Demanda(None, None)] * 5
             self.tam = len(self.elementos)
@@ -88,6 +103,20 @@ class Fila:
         return self.elementos[self.fim-1].codigo
 
     def enfileira_prioridade(self) -> int:
+        '''
+        Insere o código de atendimento de tipo PRIORITARIA na fila e retorna o código atribuído sequenciamente,
+        respeitando as regras de ultrapassagem e precedência sobre os atendimentos gerais.
+        Exemplos:
+        >>> f = Fila()
+        >>> f.enfileira_geral()
+        1
+        >>> f.enfileira_geral()
+        2
+        >>> f.enfileira_prioridade()
+        3
+        >>> f.mostra_fila
+        '[3, 1, 2]'
+        '''
         if self.tam - self.fim < 2:
             self.elementos = self.elementos + [Demanda(None, None)] * 5
             self.tam = len(self.elementos)
@@ -104,6 +133,20 @@ class Fila:
         return self.elementos[indice].codigo
 
     def mostra_fila(self) -> str:
+        '''
+        Mostra a fila de atendimento
+        
+        Exemplos:
+        >>> f = Fila()
+        >>> f.enfileira_geral()
+        1
+        >>> f.enfileira_geral()
+        2
+        >>> f.enfileira_prioridade()
+        3
+        >>> f.mostra_fila()
+        '[3, 1, 2]'
+        '''
         if self.vazia():
             return '[]'
 
@@ -115,6 +158,20 @@ class Fila:
         return str
     
     def desenfileira(self) -> int:
+        '''
+        Remove um valor do início da fila
+        >>> f = Fila()
+        >>> f.enfileira_geral()
+        1
+        >>> f.enfileira_geral()
+        2
+        >>> f.enfileira_prioridade()
+        3
+        >>> f.mostra_fila
+        '[3, 1, 2]'
+        >>> f.desenfileira()
+        '[1, 2]'
+        '''
         if self.vazia():
             raise ValueError('Fila vazia')
         
@@ -128,6 +185,18 @@ class Fila:
         return primeira_demanda
 
     def vazia(self) -> bool:
+        '''
+        Retorna True se a fila estiver vazia, e False caso contrário.
+
+        Exemplos:
+        >>> f = Fila()
+        >>> f.vazia()
+        True
+        >>> f.enfileira_geral()
+        1
+        >>> f.vazia()
+        False
+        '''
         return self.fim == 0
 
     def _encontra_indice(self) -> int:
