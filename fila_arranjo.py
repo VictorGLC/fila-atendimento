@@ -58,14 +58,14 @@ class Fila:
     '[1, 2, 6, 9, 5, 10, 7, 8, 11]'
     '''
     def __init__(self):
-        self.elementos = [Demanda(None, None)] * 10
-        self.tam = 10
-        self.fim = 0
-        self.contador = 1
+        self.elementos: list[Demanda] = [Demanda(None, None)] * 5
+        self.tam: int = 5
+        self.fim: int = 0
+        self.contador: int = 1
 
-    def enfileira_geral(self):
-        if self.tam - self.fim < 3:
-            self.elementos = self.elementos + [Demanda(None, None)] * 10
+    def enfileira_geral(self) -> int:
+        if self.tam - self.fim < 2:
+            self.elementos = self.elementos + [Demanda(None, None)] * 3
             self.tam = len(self.elementos)
 
         self.elementos[self.fim] = deepcopy(Demanda(self.contador, Tipo.GERAL))
@@ -73,12 +73,12 @@ class Fila:
         self.fim+=1
         return self.elementos[self.fim-1].codigo
 
-    def enfileira_prioridade(self):
-        if self.tam - self.fim < 5:
-            self.elementos = self.elementos + [Demanda(None, None)] * self.tam
+    def enfileira_prioridade(self) -> int:
+        if self.tam - self.fim < 2:
+            self.elementos = self.elementos + [Demanda(None, None)] * 3
             self.tam = len(self.elementos)
 
-        indice = self.encontra_indice()
+        indice = self._encontra_indice()
 
         for i in range(self.fim, indice, -1):
             self.elementos[i] = self.elementos[i-1]
@@ -89,7 +89,7 @@ class Fila:
 
         return self.elementos[indice].codigo
 
-    def mostra_fila(self):
+    def mostra_fila(self) -> str:
         if self.vazia():
             return '[]'
 
@@ -100,7 +100,7 @@ class Fila:
 
         return str
     
-    def desenfileira(self):
+    def desenfileira(self) -> int:
         if self.vazia():
             raise ValueError('Fila vazia')
         
@@ -113,10 +113,10 @@ class Fila:
  
         return primeira_demanda
 
-    def vazia(self):
+    def vazia(self) -> bool:
         return self.fim == 0
 
-    def encontra_indice(self):
+    def _encontra_indice(self) -> int:
 
         for i in range(self.fim-1, 0, -1):
             demanda = self.elementos[i]
