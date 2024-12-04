@@ -80,6 +80,23 @@ class Fila:
         '''
         raise NotImplemented
 
+    def desenfileira(self):
+        '''
+        Remove um valor do início da fila
+        >>> f = Fila()
+        >>> f.enfileira_geral()
+        1
+        >>> f.enfileira_geral()
+        2
+        >>> f.enfileira_prioridade()
+        3
+        >>> f.mostra_fila
+        '[3, 1, 2]'
+        >>> f.desenfileira()
+        '[1, 2]'
+        '''
+        raise NotImplemented
+    
     def mostra_fila(self):
         '''
         Mostra a fila de atendimento
@@ -94,7 +111,6 @@ class Fila:
         3
         >>> f.mostra_fila()
         '[3, 1, 2]'
-
         '''
         raise NotImplemented
 
