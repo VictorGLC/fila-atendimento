@@ -54,18 +54,32 @@ class Fila:
     10
     >>> f.enfileira_prioridade()
     11
+    >>> f.enfileira_prioridade()
+    12
+    >>> f.enfileira_prioridade()
+    13
+    >>> f.enfileira_geral()
+    14
+    >>> f.enfileira_geral()
+    15
+    >>> f.enfileira_prioridade()
+    16
+    >>> f.enfileira_prioridade()
+    17
+    >>> f.enfileira_prioridade()
+    18
     >>> f.mostra_fila()
-    '[1, 2, 6, 9, 5, 10, 7, 8, 11]'
+    '[1, 2, 6, 9, 5, 10, 7, 8, 11, 12, 13, 16, 17, 14, 15, 18]'
     '''
     def __init__(self):
-        self.elementos: list[Demanda] = [Demanda(None, None)] * 5
-        self.tam: int = 5
+        self.elementos: list[Demanda] = [Demanda(None, None)] * 8
+        self.tam: int = 8
         self.fim: int = 0
         self.contador: int = 1
 
     def enfileira_geral(self) -> int:
         if self.tam - self.fim < 2:
-            self.elementos = self.elementos + [Demanda(None, None)] * 3
+            self.elementos = self.elementos + [Demanda(None, None)] * 5
             self.tam = len(self.elementos)
 
         self.elementos[self.fim] = deepcopy(Demanda(self.contador, Tipo.GERAL))
@@ -75,7 +89,7 @@ class Fila:
 
     def enfileira_prioridade(self) -> int:
         if self.tam - self.fim < 2:
-            self.elementos = self.elementos + [Demanda(None, None)] * 3
+            self.elementos = self.elementos + [Demanda(None, None)] * 5
             self.tam = len(self.elementos)
 
         indice = self._encontra_indice()
