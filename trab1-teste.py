@@ -1,8 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum, auto
 import sys
-from fila_arranjo import Fila
-
+from fila_encadeada import Fila
 
 def main():
     if len(sys.argv) < 2:
@@ -19,7 +18,7 @@ def main():
         if demanda.tipo == Tipo.GERAL:
             f.enfileira_geral()
         else:
-            f.enfileira_prioritaria()
+            f.enfileira_prioridade()
 
     while not f.vazia():
         pos = f.desenfileira()

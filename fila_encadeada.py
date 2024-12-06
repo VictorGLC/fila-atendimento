@@ -1,5 +1,4 @@
 from __future__ import annotations
-from dataclasses import dataclass
 from copy import deepcopy
 from enum import Enum, auto
 
@@ -16,58 +15,179 @@ class Demanda:
 class No:
     def __init__(self, demanda: Demanda):
         self.dado: Demanda = demanda
-        self.ante: None # type: ignore
-        self.prox: None # type: ignore
+        self.ante: No | None = None
+        self.prox: No | None = None
 
 class Fila:
-    sentinela: No
-    contador: int
-    
+    '''
+    >>> f = Fila()
+    >>> f.vazia()
+    True
+    >>> f.enfileira_geral()
+    1
+    >>> f.enfileira_geral()
+    2
+    >>> f.mostra_fila()
+    '[1, 2]'
+    >>> f.enfileira_prioridade()
+    3
+    >>> f.mostra_fila()
+    '[3, 1, 2]'
+    >>> f.enfileira_prioridade()
+    4
+    >>> f.mostra_fila()
+    '[3, 4, 1, 2]'
+    >>> f.enfileira_geral()
+    5
+    >>> f.mostra_fila()
+    '[3, 4, 1, 2, 5]'
+    >>> f.enfileira_prioridade()
+    6
+    >>> f.mostra_fila()
+    '[3, 4, 1, 2, 6, 5]'
+    >>> f.enfileira_geral()
+    7
+    >>> f.enfileira_geral()
+    8
+    >>> f.enfileira_prioridade()
+    9
+    >>> f.mostra_fila()
+    '[3, 4, 1, 2, 6, 9, 5, 7, 8]'
+    >>> f.desenfileira()
+    3
+    >>> f.desenfileira()
+    4
+    >>> f.mostra_fila()
+    '[1, 2, 6, 9, 5, 7, 8]'
+    >>> f.enfileira_prioridade()
+    10
+    >>> f.enfileira_prioridade()
+    11
+    >>> f.enfileira_prioridade()
+    12
+    >>> f.enfileira_prioridade()
+    13
+    >>> f.enfileira_geral()
+    14
+    >>> f.enfileira_geral()
+    15
+    >>> f.enfileira_prioridade()
+    16
+    >>> f.enfileira_prioridade()
+    17
+    >>> f.enfileira_prioridade()
+    18
+    >>> f.mostra_fila()
+    '[1, 2, 6, 9, 5, 10, 7, 8, 11, 12, 13, 16, 17, 14, 15, 18]'
+    '''
     def __init__(self):
-        self.sentinela = No(None)
-        self.sentinela.prox = self.sentinela
-        self.sentinela.ante = self.sentinela
-        self.contador = 0
+        self.primeiro = No(Demanda(None, None))
+        self.ultimo = self.primeiro
+        self.primeiro.prox = None
+        self.primeiro.ante = None
+        self.contador = 1
 
     def enfileira_geral(self) -> int:
+        '''
+        Insere o código de atendimento de tipo GERAL na fila e retorna o código atribuído sequencialmente
+        '''
+        nova_demanda = deepcopy(No(Demanda(self.contador, Tipo.GERAL)))
+        self.contador+=1
+
+        if self.vazia():
+            self.primeiro.prox = nova_demanda
+            nova_demanda.ante = self.primeiro
+            self.ultimo = nova_demanda
+            self.ultimo.ante = self.primeiro
+            
+            return nova_demanda.dado.codigo
+        
+        ptr = self.primeiro
+        while ptr.prox != None:
+            ptr = ptr.prox
+        
+        self.ultimo = nova_demanda
+        self.ultimo.ante = ptr
+        ptr.prox = self.ultimo
+
+        return nova_demanda.dado.codigo
+
+    def enfileira_prioridade(self) -> int:
+        '''
+        Insere o código de atendimento de tipo PRIORITARIA na fila e retorna o código atribuído sequenciamente,
+        respeitando as regras de ultrapassagem e precedência sobre os atendimentos gerais.
+        '''
+        
+
+    def enfileira_prioridade(self) -> int:
+        """
+        Insere uma nova demanda do tipo PRIORITÁRIA na fila.
+        Ela deve ser inserida antes de qualquer demanda PRIORITÁRIA ou antes de uma demanda GERAL com ultrapassagens igual a 0.
+        Durante o processo, ultrapassagens das demandas gerais ultrapassadas são decrementadas.
+        """
+        # Criação de nova demanda prioritária
+        nova_demanda = No(Demanda(self.contador, Tipo.PRIORITARIA))
         self.contador += 1
-        nova_demanda = deepcopy(No(Demanda(self.contador, 0, Tipo.Geral)))
 
-        self.trata_enfileiramento(self.sentinela.ante, nova_demanda)
+        ptr = self.ultimo
+        while ptr != self.primeiro and not (ptr.dado.tipo == Tipo.PRIORITARIA or (ptr.dado.tipo == Tipo.GERAL and ptr.dado.ultrapassagens == 0)):
+            if ptr.dado.tipo == Tipo.GERAL and ptr.dado.ultrapassagens > 0:
+                ptr.dado.ultrapassagens -= 1
+            ptr = ptr.ante
 
-        return self.contador
+        if ptr == self.primeiro:
+            # Inserir no início da fila (após o nó fictício)
+            nova_demanda.prox = self.primeiro.prox
+            nova_demanda.ante = self.primeiro
+            if self.primeiro.prox:
+                self.primeiro.prox.ante = nova_demanda
+            self.primeiro.prox = nova_demanda
+            if self.ultimo == self.primeiro:  # Caso a fila esteja vazia
+                self.ultimo = nova_demanda
+        else:
+            nova_demanda.prox = ptr.prox
+            nova_demanda.ante = ptr
+            if ptr.prox:
+                ptr.prox.ante = nova_demanda
+            ptr.prox = nova_demanda
+            if ptr == self.ultimo:
+                self.ultimo = nova_demanda
 
-    def enfileira_prioritaria(self) -> int:
-        sentinela = self.sentinela.ante
-
-        while sentinela.dado.tipo == Tipo.Geral and sentinela.item.ultrapassagens <2:
-            sentinela.dado.ultrapassagens += 1
-            sentinela = sentinela.ante
-
-        self.contador += 1
-        nova_demanda = deepcopy(No(Demanda(self.contador, 0, Tipo.Geral)))
-
-        self.trata_enfileiramento(self.sentinela.ante, nova_demanda)
-
-        return self.contador
-
-    def trata_enfileiramento(self, sentinela: No, demanda: No):
-        raise NotImplemented
+        return nova_demanda.dado.codigo
 
     def vazia(self) -> bool:
-        return self.sentinela.prox is self.sentinela
+        return self.primeiro == self.ultimo
 
     def desenfileira(self):
+        '''
+        Insere o código de atendimento de tipo GERAL na fila e retorna o código atribuído sequencialmente
+        '''
         if self.vazia():
             raise ValueError('Fila vazia.')
         
-        rem = self.sentinela.prox.dado.codigo
+        rem = self.primeiro.prox
 
-        sentinela_AUX = self.sentinela.prox
-        sentinela_AUX.prox.ante = sentinela_AUX.ante 
-        sentinela_AUX.ante.prox = sentinela_AUX.prox
+        rem.ante = None
+        self.primeiro.prox = rem.prox
+        rem.prox = self.primeiro
+        rem.prox = None
 
-        return rem
+        if self.primeiro.prox == None:
+            self.ultimo = self.primeiro
+
+        return rem.dado.codigo
 
     def mostra_fila(self) -> str:
-        raise NotImplemented
+        if self.vazia():
+            return '[]'
+ 
+        str = "["
+        ptr = self.primeiro.prox
+
+        while ptr.prox != None:
+            str+=f'{ptr.dado.codigo}, '
+            ptr = ptr.prox
+
+        str += f'{ptr.dado.codigo}]'
+        return str
+    
