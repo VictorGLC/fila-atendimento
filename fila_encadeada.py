@@ -1,4 +1,3 @@
-from __future__ import annotations
 from copy import deepcopy
 from enum import Enum, auto
 
@@ -114,7 +113,7 @@ class Fila:
     >>> d.mostra_fila()
     '[6, 7, 5, 8]'
 
-        >>> f = Fila()
+    >>> f = Fila()
     >>> f.vazia()
     True
     >>> f.enfileira_prioridade()
@@ -145,8 +144,21 @@ class Fila:
     7
     >>> f.mostra_fila()
     '[4, 6, 2, 3, 7, 5]'
+    >>> f.enfileira_prioridade()
+    8
+    >>> f.enfileira_geral()
+    9
+    >>> f.mostra_fila()
+    '[4, 6, 2, 3, 7, 5, 8, 9]'
+    >>> f.desenfileira()
+    4
+    >>> f.mostra_fila()
+    '[6, 2, 3, 7, 5, 8, 9]'
     '''
     def __init__(self):
+        '''
+        Inicializa a fila de atendimento.
+        '''
         self.primeiro = No(Demanda(None, None))
         self.ultimo = self.primeiro
         self.primeiro.prox = None
@@ -185,7 +197,7 @@ class Fila:
         Durante o processo, ultrapassagens das demandas gerais ultrapassadas são decrementadas.
         """
         # Criação de nova demanda prioritária
-        nova_demanda = No(Demanda(self.contador, Tipo.PRIORITARIA))
+        nova_demanda = deepcopy(No(Demanda(self.contador, Tipo.PRIORITARIA)))
         self.contador += 1
 
         ptr = self.ultimo
@@ -219,7 +231,7 @@ class Fila:
 
     def desenfileira(self):
         '''
-        Insere o código de atendimento de tipo GERAL na fila e retorna o código atribuído sequencialmente
+        Remove a primeira demanda da fila e retorna o seu código.
         '''
         if self.vazia():
             raise ValueError('Fila vazia.')
@@ -237,6 +249,9 @@ class Fila:
         return rem.dado.codigo
 
     def mostra_fila(self) -> str:
+        '''
+        Retorna True se a fila estiver vazia, e False caso contrário.
+        '''
         if self.vazia():
             return '[]'
  

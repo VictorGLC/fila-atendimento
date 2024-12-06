@@ -138,10 +138,20 @@ class Fila:
     7
     >>> f.mostra_fila()
     '[4, 6, 2, 3, 7, 5]'
+    >>> f.enfileira_prioridade()
+    8
+    >>> f.enfileira_geral()
+    9
+    >>> f.mostra_fila()
+    '[4, 6, 2, 3, 7, 5, 8, 9]'
+    >>> f.desenfileira()
+    4
+    >>> f.mostra_fila()
+    '[6, 2, 3, 7, 5, 8, 9]'
     '''
     def __init__(self):
         '''
-        Inicializa a fila de atendimento
+        Inicializa a fila de atendimento.
         '''
         self.elementos: list[Demanda] = [Demanda(None, None)] * 8
         self.tam: int = 8
@@ -150,7 +160,7 @@ class Fila:
 
     def enfileira_geral(self) -> int:
         '''
-        Insere o código de atendimento de tipo GERAL na fila e retorna o código atribuído sequencialmente
+        Insere o código de atendimento de tipo GERAL no final da fila e retorna o código atribuído sequencialmente.
         
         Exemplos:
         >>> f = Fila()
@@ -172,8 +182,9 @@ class Fila:
 
     def enfileira_prioridade(self) -> int:
         '''
-        Insere o código de atendimento de tipo PRIORITARIA na fila e retorna o código atribuído sequenciamente,
-        respeitando as regras de ultrapassagem e precedência sobre os atendimentos gerais.
+        Insere uma nova demanda do tipo PRIORITÁRIA na fila.
+        Ela deve ser inserida antes de qualquer demanda PRIORITÁRIA ou antes de uma demanda GERAL com ultrapassagens igual a 0.
+        Durante o processo, ultrapassagens das demandas gerais ultrapassadas são decrementadas.
         Exemplos:
         >>> f = Fila()
         >>> f.enfileira_geral()
@@ -202,7 +213,7 @@ class Fila:
 
     def mostra_fila(self) -> str:
         '''
-        Mostra a fila de atendimento
+        Imprime a fila de atendimentos conforme a ordem de prioridade.
         
         Exemplos:
         >>> f = Fila()
@@ -227,7 +238,7 @@ class Fila:
     
     def desenfileira(self) -> int:
         '''
-        Remove um valor do início da fila
+        Remove a primeira demanda da fila e retorna o seu código.
         >>> f = Fila()
         >>> f.enfileira_geral()
         1
@@ -268,7 +279,11 @@ class Fila:
         return self.fim == 0
 
     def _encontra_indice(self) -> int:
-
+        '''
+        Busca de trás para frente e retorna o indice da posição que deve ser inserida uma nova demanda prioritária,
+        ou seja, checa e retorna o indice anterior de uma demanda que é prioritária 
+        ou do tipo geral que foi ultrapassada 2 vezes
+        '''
         for i in range(self.fim-1, 0, -1):
             demanda = self.elementos[i]
 
