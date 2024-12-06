@@ -79,6 +79,72 @@ class Fila:
     18
     >>> f.mostra_fila()
     '[1, 2, 6, 9, 5, 10, 7, 8, 11, 12, 13, 16, 17, 14, 15, 18]'
+
+    >>> d = Fila()
+    >>> d.enfileira_prioridade()
+    1
+    >>> d.enfileira_prioridade()
+    2
+    >>> d.enfileira_geral()
+    3
+    >>> d.enfileira_geral()
+    4
+    >>> d.mostra_fila()
+    '[1, 2, 3, 4]'
+    >>> d.desenfileira()
+    1
+    >>> d.desenfileira()
+    2
+    >>> d.desenfileira()
+    3
+    >>> d.desenfileira()
+    4
+    >>> d.vazia()
+    True
+    >>> d.enfileira_geral()
+    5
+    >>> d.vazia()
+    False
+    >>> d.enfileira_prioridade()
+    6
+    >>> d.enfileira_prioridade()
+    7
+    >>> d.enfileira_prioridade()
+    8
+    >>> d.mostra_fila()
+    '[6, 7, 5, 8]'
+
+        >>> f = Fila()
+    >>> f.vazia()
+    True
+    >>> f.enfileira_prioridade()
+    1
+    >>> f.enfileira_geral()
+    2
+    >>> f.enfileira_geral()
+    3
+    >>> f.mostra_fila()
+    '[1, 2, 3]'
+    >>> f.enfileira_prioridade()
+    4
+    >>> f.mostra_fila()
+    '[1, 4, 2, 3]'
+    >>> f.enfileira_geral()
+    5
+    >>> f.mostra_fila()
+    '[1, 4, 2, 3, 5]'
+    >>> f.enfileira_prioridade()
+    6
+    >>> f.mostra_fila()
+    '[1, 4, 6, 2, 3, 5]'
+    >>> f.desenfileira()
+    1
+    >>> f.mostra_fila()
+    '[4, 6, 2, 3, 5]'
+    >>> f.enfileira_prioridade()
+    7
+    >>> f.mostra_fila()
+    '[4, 6, 2, 3, 7, 5]'
     '''
     def __init__(self):
         self.primeiro = No(Demanda(None, None))
@@ -89,7 +155,7 @@ class Fila:
 
     def enfileira_geral(self) -> int:
         '''
-        Insere o código de atendimento de tipo GERAL na fila e retorna o código atribuído sequencialmente
+        Insere o código de atendimento de tipo GERAL no final da fila e retorna o código atribuído sequencialmente.
         '''
         nova_demanda = deepcopy(No(Demanda(self.contador, Tipo.GERAL)))
         self.contador+=1
@@ -111,14 +177,7 @@ class Fila:
         ptr.prox = self.ultimo
 
         return nova_demanda.dado.codigo
-
-    def enfileira_prioridade(self) -> int:
-        '''
-        Insere o código de atendimento de tipo PRIORITARIA na fila e retorna o código atribuído sequenciamente,
-        respeitando as regras de ultrapassagem e precedência sobre os atendimentos gerais.
-        '''
         
-
     def enfileira_prioridade(self) -> int:
         """
         Insere uma nova demanda do tipo PRIORITÁRIA na fila.
@@ -190,4 +249,3 @@ class Fila:
 
         str += f'{ptr.dado.codigo}]'
         return str
-    
