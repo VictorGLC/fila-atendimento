@@ -148,6 +148,32 @@ class Fila:
     4
     >>> f.mostra_fila()
     '[6, 2, 3, 7, 5, 8, 9]'
+
+    >>> h = Fila()
+    >>> h.enfileira_geral()
+    1
+    >>> h.enfileira_prioritaria()
+    2
+    >>> h.enfileira_geral()
+    3
+    >>> h.enfileira_geral()
+    4
+    >>> h.enfileira_prioritaria()
+    5
+    >>> h.mostra_fila()
+    '[2, 5, 1, 3, 4]'
+    >>> h.enfileira_geral()
+    6
+    >>> h.enfileira_geral()
+    7
+    >>> h.enfileira_prioritaria()
+    8
+    >>> h.mostra_fila()
+    '[2, 5, 1, 8, 3, 4, 6, 7]'
+    >>> h.enfileira_prioritaria()
+    9
+    >>> h.mostra_fila
+    '[2, 5, 1, 8, 3, 4, 9, 6, 7]'
     '''
     def __init__(self):
         '''
