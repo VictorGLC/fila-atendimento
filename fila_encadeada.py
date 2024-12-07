@@ -154,7 +154,7 @@ class Fila:
     4
     >>> f.mostra_fila()
     '[6, 2, 3, 7, 5, 8, 9]'
-    
+
     >>> h = Fila()
     >>> h.enfileira_geral()
     1
@@ -178,7 +178,7 @@ class Fila:
     '[2, 5, 1, 8, 3, 4, 6, 7]'
     >>> h.enfileira_prioritaria()
     9
-    >>> h.mostra_fila
+    >>> h.mostra_fila()
     '[2, 5, 1, 8, 3, 4, 9, 6, 7]'
     '''
     def __init__(self):
@@ -241,14 +241,14 @@ class Fila:
         2
         >>> f.enfileira_prioritaria()
         3
-        >>> f.mostra_fila
+        >>> f.mostra_fila()
         '[3, 1, 2]'
         >>> f.enfileira_prioritaria()
         4
         >>> f.enfileira_prioritaria()
         5
         >>> f.mostra_fila()
-       '[3, 4, 1, 2, 5]'
+        '[3, 4, 1, 2, 5]'
         '''
         # Criação de nova demanda prioritária
         nova_demanda = deepcopy(No(Demanda(self.contador, Tipo.PRIORITARIA)))
@@ -261,7 +261,7 @@ class Fila:
             ptr = ptr.ante
 
         if ptr == self.primeiro:
-            # Inserir no início da fila (após o nó fictício)
+            # Inserir no início da fila (após a sentinela)
             nova_demanda.prox = self.primeiro.prox
             nova_demanda.ante = self.primeiro
             if self.primeiro.prox:
@@ -307,10 +307,10 @@ class Fila:
         2
         >>> f.enfileira_prioritaria()
         3
-        >>> f.mostra_fila
+        >>> f.mostra_fila()
         '[3, 1, 2]'
         >>> f.desenfileira()
-        '[1, 2]'
+        3
         '''
         if self.vazia():
             raise ValueError('Fila vazia.')

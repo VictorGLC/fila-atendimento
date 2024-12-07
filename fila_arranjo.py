@@ -172,7 +172,7 @@ class Fila:
     '[2, 5, 1, 8, 3, 4, 6, 7]'
     >>> h.enfileira_prioritaria()
     9
-    >>> h.mostra_fila
+    >>> h.mostra_fila()
     '[2, 5, 1, 8, 3, 4, 9, 6, 7]'
     '''
     def __init__(self):
