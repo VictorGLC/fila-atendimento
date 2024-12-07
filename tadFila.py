@@ -13,7 +13,7 @@ class Fila:
         '''
         raise NotImplemented
 
-    def enfileira_prioridade(self) -> int:
+    def enfileira_prioritaria(self) -> int:
         '''
         Insere uma nova demanda do tipo PRIORITÁRIA na fila.
         Ela deve ser inserida antes de qualquer demanda PRIORITÁRIA ou antes de uma demanda GERAL com ultrapassagens igual a 0.
