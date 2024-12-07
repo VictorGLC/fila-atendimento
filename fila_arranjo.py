@@ -22,11 +22,11 @@ class Fila:
     2
     >>> f.mostra_fila()
     '[1, 2]'
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     3
     >>> f.mostra_fila()
     '[3, 1, 2]'
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     4
     >>> f.mostra_fila()
     '[3, 4, 1, 2]'
@@ -34,7 +34,7 @@ class Fila:
     5
     >>> f.mostra_fila()
     '[3, 4, 1, 2, 5]'
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     6
     >>> f.mostra_fila()
     '[3, 4, 1, 2, 6, 5]'
@@ -42,7 +42,7 @@ class Fila:
     7
     >>> f.enfileira_geral()
     8
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     9
     >>> f.mostra_fila()
     '[3, 4, 1, 2, 6, 9, 5, 7, 8]'
@@ -52,31 +52,31 @@ class Fila:
     4
     >>> f.mostra_fila()
     '[1, 2, 6, 9, 5, 7, 8]'
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     10
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     11
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     12
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     13
     >>> f.enfileira_geral()
     14
     >>> f.enfileira_geral()
     15
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     16
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     17
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     18
     >>> f.mostra_fila()
     '[1, 2, 6, 9, 5, 10, 7, 8, 11, 12, 13, 16, 17, 14, 15, 18]'
 
     >>> d = Fila()
-    >>> d.enfileira_prioridade()
+    >>> d.enfileira_prioritaria()
     1
-    >>> d.enfileira_prioridade()
+    >>> d.enfileira_prioritaria()
     2
     >>> d.enfileira_geral()
     3
@@ -98,11 +98,11 @@ class Fila:
     5
     >>> d.vazia()
     False
-    >>> d.enfileira_prioridade()
+    >>> d.enfileira_prioritaria()
     6
-    >>> d.enfileira_prioridade()
+    >>> d.enfileira_prioritaria()
     7
-    >>> d.enfileira_prioridade()
+    >>> d.enfileira_prioritaria()
     8
     >>> d.mostra_fila()
     '[6, 7, 5, 8]'
@@ -110,7 +110,7 @@ class Fila:
     >>> f = Fila()
     >>> f.vazia()
     True
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     1
     >>> f.enfileira_geral()
     2
@@ -118,7 +118,7 @@ class Fila:
     3
     >>> f.mostra_fila()
     '[1, 2, 3]'
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     4
     >>> f.mostra_fila()
     '[1, 4, 2, 3]'
@@ -126,7 +126,7 @@ class Fila:
     5
     >>> f.mostra_fila()
     '[1, 4, 2, 3, 5]'
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     6
     >>> f.mostra_fila()
     '[1, 4, 6, 2, 3, 5]'
@@ -134,11 +134,11 @@ class Fila:
     1
     >>> f.mostra_fila()
     '[4, 6, 2, 3, 5]'
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     7
     >>> f.mostra_fila()
     '[4, 6, 2, 3, 7, 5]'
-    >>> f.enfileira_prioridade()
+    >>> f.enfileira_prioritaria()
     8
     >>> f.enfileira_geral()
     9
@@ -180,7 +180,7 @@ class Fila:
         self.fim+=1
         return self.elementos[self.fim-1].codigo
 
-    def enfileira_prioridade(self) -> int:
+    def enfileira_prioritaria(self) -> int:
         '''
         Insere uma nova demanda do tipo PRIORITÁRIA na fila.
         Ela deve ser inserida antes de qualquer demanda PRIORITÁRIA ou antes de uma demanda GERAL com ultrapassagens igual a 0.
@@ -191,7 +191,7 @@ class Fila:
         1
         >>> f.enfileira_geral()
         2
-        >>> f.enfileira_prioridade()
+        >>> f.enfileira_prioritaria()
         3
         >>> f.mostra_fila()
         '[3, 1, 2]'
@@ -221,7 +221,7 @@ class Fila:
         1
         >>> f.enfileira_geral()
         2
-        >>> f.enfileira_prioridade()
+        >>> f.enfileira_prioritaria()
         3
         >>> f.mostra_fila()
         '[3, 1, 2]'
@@ -244,7 +244,7 @@ class Fila:
         1
         >>> f.enfileira_geral()
         2
-        >>> f.enfileira_prioridade()
+        >>> f.enfileira_prioritaria()
         3
         >>> f.mostra_fila()
         '[3, 1, 2]'
