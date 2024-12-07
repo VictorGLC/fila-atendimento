@@ -329,7 +329,7 @@ class Fila:
 
     def mostra_fila(self) -> str:
         '''
-        Mostra a fila de atendimento
+        Mostra a fila de atendimento.
         
         Exemplos:
         >>> f = Fila()

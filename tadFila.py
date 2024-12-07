@@ -50,7 +50,7 @@ class Fila:
 
     def enfileira_geral(self):
         '''
-        Insere o código de atendimento de tipo GERAL na fila e retorna o código atribuído sequencialmente
+        Insere o código de atendimento de tipo GERAL no final da fila e retorna o código atribuído sequencialmente.
         
         Exemplos:
         >>> f = Fila()
@@ -63,10 +63,12 @@ class Fila:
         '''
         raise NotImplemented
 
-    def enfileira_prioridade(self):
+    def enfileira_prioritaria(self):
         '''
-        Insere o código de atendimento de tipo PRIORITARIA na fila e retorna o código atribuído sequenciamente,
-        respeitando as regras de ultrapassagem e precedência sobre os atendimentos gerais.
+        Insere uma nova demanda do tipo PRIORITÁRIA na fila.
+        Ela deve ser inserida antes de qualquer demanda PRIORITÁRIA ou antes de uma demanda GERAL com ultrapassagens igual a 0.
+        Durante o processo, ultrapassagens das demandas gerais ultrapassadas são decrementadas.
+
         Exemplos:
         >>> f = Fila()
         >>> f.enfileira_geral()
@@ -82,7 +84,9 @@ class Fila:
 
     def desenfileira(self):
         '''
-        Remove um valor do início da fila
+        Remove a primeira demanda da fila e retorna o seu código.
+
+        Exemplos:
         >>> f = Fila()
         >>> f.enfileira_geral()
         1
@@ -99,7 +103,7 @@ class Fila:
     
     def mostra_fila(self):
         '''
-        Mostra a fila de atendimento
+        Mostra a fila de atendimento.
         
         Exemplos:
         >>> f = Fila()
