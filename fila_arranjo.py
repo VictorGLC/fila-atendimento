@@ -211,6 +211,7 @@ class Fila:
         Insere uma nova demanda do tipo PRIORITÁRIA na fila.
         Ela deve ser inserida antes de qualquer demanda PRIORITÁRIA ou antes de uma demanda GERAL com ultrapassagens igual a 0.
         Durante o processo, ultrapassagens das demandas gerais ultrapassadas são decrementadas.
+        
         Exemplos:
         >>> f = Fila()
         >>> f.enfileira_geral()
@@ -265,6 +266,8 @@ class Fila:
     def desenfileira(self) -> int:
         '''
         Remove a primeira demanda da fila e retorna o seu código.
+
+        Exemplos:
         >>> f = Fila()
         >>> f.enfileira_geral()
         1
