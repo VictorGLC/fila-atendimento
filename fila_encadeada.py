@@ -154,6 +154,32 @@ class Fila:
     4
     >>> f.mostra_fila()
     '[6, 2, 3, 7, 5, 8, 9]'
+    
+    >>> h = Fila()
+    >>> h.enfileira_geral()
+    1
+    >>> h.enfileira_prioritaria()
+    2
+    >>> h.enfileira_geral()
+    3
+    >>> h.enfileira_geral()
+    4
+    >>> h.enfileira_prioritaria()
+    5
+    >>> h.mostra_fila()
+    '[2, 5, 1, 3, 4]'
+    >>> h.enfileira_geral()
+    6
+    >>> h.enfileira_geral()
+    7
+    >>> h.enfileira_prioritaria()
+    8
+    >>> h.mostra_fila()
+    '[2, 5, 1, 8, 3, 4, 6, 7]'
+    >>> h.enfileira_prioritaria()
+    9
+    >>> h.mostra_fila
+    '[2, 5, 1, 8, 3, 4, 9, 6, 7]'
     '''
     def __init__(self):
         '''
@@ -168,6 +194,17 @@ class Fila:
     def enfileira_geral(self) -> int:
         '''
         Insere o código de atendimento de tipo GERAL no final da fila e retorna o código atribuído sequencialmente.
+        
+        Exemplos:
+        >>> f = Fila()
+        >>> f.enfileira_geral()
+        1
+        >>> f.enfileira_geral()
+        2
+        >>> f.enfileira_geral()
+        3
+        >>> f.mostra_fila()
+        '[1, 2, 3]'
         '''
         nova_demanda = deepcopy(No(Demanda(self.contador, Tipo.GERAL)))
         self.contador+=1
@@ -191,11 +228,28 @@ class Fila:
         return nova_demanda.dado.codigo
         
     def enfileira_prioritaria(self) -> int:
-        """
+        '''
         Insere uma nova demanda do tipo PRIORITÁRIA na fila.
         Ela deve ser inserida antes de qualquer demanda PRIORITÁRIA ou antes de uma demanda GERAL com ultrapassagens igual a 0.
         Durante o processo, ultrapassagens das demandas gerais ultrapassadas são decrementadas.
-        """
+        
+        Exemplos:
+        >>> f = Fila()
+        >>> f.enfileira_geral()
+        1
+        >>> f.enfileira_geral()
+        2
+        >>> f.enfileira_prioritaria()
+        3
+        >>> f.mostra_fila
+        '[3, 1, 2]'
+        >>> f.enfileira_prioritaria()
+        4
+        >>> f.enfileira_prioritaria()
+        5
+        >>> f.mostra_fila()
+       '[3, 4, 1, 2, 5]'
+        '''
         # Criação de nova demanda prioritária
         nova_demanda = deepcopy(No(Demanda(self.contador, Tipo.PRIORITARIA)))
         self.contador += 1
@@ -227,11 +281,36 @@ class Fila:
         return nova_demanda.dado.codigo
 
     def vazia(self) -> bool:
+        '''
+        Retorna True se a fila estiver vazia e False caso contrário.
+
+        Exemplos:
+        >>> f = Fila()
+        >>> f.vazia()
+        True
+        >>> f.enfileira_geral()
+        1
+        >>> f.vazia()
+        False
+        '''
         return self.primeiro == self.ultimo
 
     def desenfileira(self):
         '''
         Remove a primeira demanda da fila e retorna o seu código.
+
+        Exemplos:
+        >>> f = Fila()
+        >>> f.enfileira_geral()
+        1
+        >>> f.enfileira_geral()
+        2
+        >>> f.enfileira_prioritaria()
+        3
+        >>> f.mostra_fila
+        '[3, 1, 2]'
+        >>> f.desenfileira()
+        '[1, 2]'
         '''
         if self.vazia():
             raise ValueError('Fila vazia.')
@@ -250,7 +329,18 @@ class Fila:
 
     def mostra_fila(self) -> str:
         '''
-        Retorna True se a fila estiver vazia, e False caso contrário.
+        Mostra a fila de atendimento
+        
+        Exemplos:
+        >>> f = Fila()
+        >>> f.enfileira_geral()
+        1
+        >>> f.enfileira_geral()
+        2
+        >>> f.enfileira_prioritaria()
+        3
+        >>> f.mostra_fila()
+        '[3, 1, 2]'
         '''
         if self.vazia():
             return '[]'
