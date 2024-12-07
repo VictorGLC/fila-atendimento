@@ -18,7 +18,7 @@ def main():
         if demanda.tipo == Tipo.GERAL:
             f.enfileira_geral()
         else:
-            f.enfileira_prioridade()
+            f.enfileira_prioritaria()
 
     while not f.vazia():
         pos = f.desenfileira()
