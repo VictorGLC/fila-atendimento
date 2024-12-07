@@ -3,7 +3,6 @@ from enum import Enum, auto
 import sys
 from fila_arranjo import Fila
 
-
 def main():
     if len(sys.argv) < 2:
         print('Nenhum nome de arquivo informado.')
